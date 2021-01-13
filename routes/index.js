@@ -2,11 +2,15 @@ const express = require('express');
 const router = express.Router();
 const storeController = require('../controllers/storeController');
 
+// object destructuring
+// only importing the catchErrors function from errorHandlers.js
+const { catchErrors } = require('../handlers/errorHandlers');
+
 // Do work here
 // note that res and req are implicitly passed to the 2nd argument functions
 router.get('/', storeController.homePage);
 router.get('/add', storeController.addStore);
-router.post('/add', storeController.createStore);
+router.post('/add', catchErrors(storeController.createStore));
 
 
 // router.get('/', (req, res) => {
