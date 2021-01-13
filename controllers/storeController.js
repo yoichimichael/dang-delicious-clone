@@ -18,5 +18,5 @@ exports.createStore = async (req, res) => {
   // ... which we 'await'
   // code will stop until save has returned data or an error
   await store.save()
-  console.log('It worked!');
+  res.redirect('/')
 } 
