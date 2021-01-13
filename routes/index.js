@@ -3,7 +3,7 @@ const router = express.Router();
 const storeController = require('../controllers/storeController');
 
 // Do work here
-
+// note that res and req are implicitly passed to the 2nd argument functions
 router.get('/', storeController.homePage);
 router.get('/add', storeController.addStore);
 router.post('/add', storeController.createStore);
