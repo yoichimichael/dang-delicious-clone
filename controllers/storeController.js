@@ -4,6 +4,10 @@ const Store = mongoose.model('Store');
 
 exports.homePage = (req, res) => {
   console.log(req.name);
+  req.flash('error', 'Something Happened');
+  req.flash('info', 'Something Happened');
+  req.flash('warning', 'Something Happened');
+  req.flash('success', 'Something Happened');
   res.render('index');
 }
 
@@ -18,5 +22,7 @@ exports.createStore = async (req, res) => {
   // ... which we 'await'
   // code will stop until save has returned data or an error
   await store.save()
+
+  req.flash('success', `Successfully created ${store.name}. Care to leave a review?`);
   res.redirect('/')
 } 
