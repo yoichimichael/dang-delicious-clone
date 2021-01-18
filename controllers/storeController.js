@@ -3,11 +3,8 @@ const mongoose = require('mongoose');
 const Store = mongoose.model('Store');
 
 exports.homePage = (req, res) => {
-  console.log(req.name);
-  req.flash('error', 'Something Happened');
-  req.flash('info', 'Something Happened');
-  req.flash('warning', 'Something Happened');
-  req.flash('success', 'Something Happened');
+  // console.log(req.name);
+  
   res.render('index');
 }
 
@@ -17,12 +14,12 @@ exports.addStore = (req, res) => {
 };
 
 exports.createStore = async (req, res) => {
-  const store = new Store(req.body);
   // store.save() returns a promise
   // ... which we 'await'
   // code will stop until save has returned data or an error
-  await store.save()
-
+  const store = await (new Store(req.body).save());
+  
   req.flash('success', `Successfully created ${store.name}. Care to leave a review?`);
-  res.redirect('/')
+  // 'store' has a slug property from .save(), not from new Store(req.body) which only contains the form store data
+  res.redirect(`/store/${store.slug}`)
 } 
