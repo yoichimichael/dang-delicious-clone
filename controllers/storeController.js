@@ -23,3 +23,7 @@ exports.createStore = async (req, res) => {
   // 'store' has a slug property from .save(), not from new Store(req.body) which only contains the form store data
   res.redirect(`/store/${store.slug}`)
 } 
+
+exports.getStores = (req, res) => {
+  res.render('stores', { title: 'Stores' })
+}

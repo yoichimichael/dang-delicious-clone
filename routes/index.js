@@ -8,7 +8,8 @@ const { catchErrors } = require('../handlers/errorHandlers');
 
 // Do work here
 // note that res and req are implicitly passed to the 2nd argument functions
-router.get('/', storeController.homePage);
+router.get('/', storeController.getStores);
+router.get('/stores', storeController.getStores);
 router.get('/add', storeController.addStore);
 router.post('/add', catchErrors(storeController.createStore));
 
