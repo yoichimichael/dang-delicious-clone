@@ -25,9 +25,9 @@ exports.createStore = async (req, res) => {
 } 
 
 exports.getStores = async (req, res) => {
-  // 1. Query Database for a list of all stores
+  // Query Database for a list of all stores
   const stores = await Store.find();
-  console.log(stores);
+
   // 'stores' is name of pug template
   // { title: 'Stores' } is passed as part of locals
   res.render('stores', { title: 'Stores', stores })
