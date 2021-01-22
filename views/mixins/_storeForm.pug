@@ -8,6 +8,11 @@ mixin storeForm(store = {})
     label(for="address") Address
     //- the value attribute will only look for an address if there is a location; otherwise will return false and therefore nothing
     input(type="text" id="address" name="location[address]" value=(store.location && store.location.address)) 
+    label(for="lng") Address Lng
+    input(type="text" id="lng" name="location[coordinates][0]")
+    label(for="lat") Address Lat
+    input(type="text" id="lat" name="location[coordinates][1]") 
+
     - const choices = ['Wifi', 'Open Late', 'Family Friendly', 'Vegetarian', 'Licensed']
     - const tags = store.tags || []
     ul.tags
