@@ -63,11 +63,48 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 2);
+/******/ 	return __webpack_require__(__webpack_require__.s = 3);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+// ES6 not yet available on Node for this tutorial
+// note that googel maps, unlike MongoDB, takes lat first, lng second
+function autocomplete(input, latInput, lngInput) {
+  if (!input) return; // skip this function from running if there is not input on the page
+
+  // this gives us the address dropdown autocomplete for google maps
+  var dropdown = new google.maps.places.Autocomplete(input);
+
+  // 'addListener' is a googlemaps function
+  dropdown.addListener('place_changed', function () {
+    var place = dropdown.getPlace();
+
+    // add the coordinates to the lat and lng
+    latInput.value = place.geometry.location.lat();
+    lngInput.value = place.geometry.location.lng();
+    console.log(place);
+  });
+  // if someone hits enter on the address field, don't submit the form
+  // 13 is the keycode for enter
+  input.on('keydown', function (e) {
+    if (e.keyCode === 13) e.preventDefault();
+  });
+}
+
+// ES6 syntax?
+exports.default = autocomplete;
+
+/***/ }),
+/* 1 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -97,21 +134,29 @@ exports.$ = $;
 exports.$$ = $$;
 
 /***/ }),
-/* 1 */
+/* 2 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-/* 2 */
+/* 3 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-__webpack_require__(1);
+__webpack_require__(2);
 
-var _bling = __webpack_require__(0);
+var _bling = __webpack_require__(1);
+
+var _autocomplete = __webpack_require__(0);
+
+var _autocomplete2 = _interopRequireDefault(_autocomplete);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+(0, _autocomplete2.default)((0, _bling.$)('#address'), (0, _bling.$)('#lat'), (0, _bling.$)('#lng'));
 
 /***/ })
 /******/ ]);
