@@ -9,6 +9,7 @@ Node.prototype.on = window.on = function (name, fn) {
 
 NodeList.prototype.__proto__ = Array.prototype; // eslint-disable-line
 
+// defines the .on() function used in autocomplete.js
 NodeList.prototype.on = NodeList.prototype.addEventListener = function (name, fn) {
   this.forEach((elem) => {
     elem.on(name, fn);

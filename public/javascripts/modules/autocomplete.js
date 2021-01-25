@@ -8,6 +8,7 @@ function autocomplete(input, latInput, lngInput){
   
   // 'addListener' is a googlemaps function
   dropdown.addListener('place_changed', () => {
+    // getPlace() is a google maps widget
     const place = dropdown.getPlace();
 
     // add the coordinates to the lat and lng
@@ -17,6 +18,7 @@ function autocomplete(input, latInput, lngInput){
   });
   // if someone hits enter on the address field, don't submit the form
   // 13 is the keycode for enter
+  // .on() is defined in bling.js module
   input.on('keydown', (e) => {
     if(e.keyCode === 13) e.preventDefault();
   })
