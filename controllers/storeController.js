@@ -1,6 +1,28 @@
 const mongoose = require('mongoose');
 // Store model schema; set in Store.js file
 const Store = mongoose.model('Store');
+const multer = require('multer');
+const jimp = require('jimp');
+const uuid = require('uuid') 
+
+// sets upload restrictions
+const multerOptions = {
+  // where will the file be stored
+  storage: multer.memoryStorage(),
+  // ES6 syntax
+  fileFilter(req, file, next) {
+    // get file's type
+    const isPhoto = file.mimetype.startsWith('image/');
+    if(isPhoto){
+      // research more
+      // this is instructions for next to pass on data and not throw an error
+      next(null, true);
+    } else {
+      next({ message: 'That filetype isn\'t allowed!'}, false);
+    }
+  }
+  // what types of files will be allowed
+}
 
 exports.homePage = (req, res) => {
   // console.log(req.name);
@@ -12,6 +34,25 @@ exports.addStore = (req, res) => {
   // used for both 'adding' and 'editing' a store to keep number of templates low and code DRY
   res.render('editStore', { title: 'Add Store' });
 };
+
+// stores uploaded file to server memory, not to database
+exports.upload = multer(multerOptions).single('photo');
+
+exports.resize = async (req, res, next) => {
+  // check id there is no new file to resize
+  if(!req.file){
+    next(); // skip to the next middleware
+    return;
+  }
+  // console.log(req.file);
+
+  // gets the filetype from mimetype
+  const extension = req.file.mimetype.split('/')[1];
+  //uuid generates a unique identifier string
+  // extension is the filetype
+  req.body.photo = `${uuid.v4()}.${extension}`;
+  // now we resize
+}
 
 exports.createStore = async (req, res) => {
   // store.save() returns a promise
@@ -45,6 +86,7 @@ exports.editStore = async (req, res) => {
 
 exports.updateStore = async (req, res) => {
   // set the location data to be a point
+  // fixes a bug where updating a store's address does not assign a location.type
   req.body.location.type = 'Point';
   // find and update the store
   const store = await Store.findOneAndUpdate(
