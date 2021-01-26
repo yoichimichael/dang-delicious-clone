@@ -60,6 +60,7 @@ exports.resize = async (req, res, next) => {
   await photo.write(`./public/uploads/${req.body.photo}`);
   // once we have written the photo to our filesystem, keep going! 
   next();
+
 }
 
 exports.createStore = async (req, res) => {
@@ -107,4 +108,15 @@ exports.updateStore = async (req, res) => {
     req.flash('success', `Successfully updated <strong>${store.name}</strong>. <a href="/stores/${store.slug}">View Store →</a>`);
   // redirect them to the store and tell them it worked
     res.redirect(`/stores/${store._id}/edit`);
+}
+
+exports.getStoreBySlug = async (req, res, next) => {
+  // res.send('it works!');
+  // res.json(req.params);
+  const store = await Store.findOne({ slug: req.params.slug });
+
+  // if not store is returned, go to next function in middleware
+  if(!store) return next();
+  // res.json(store);
+  res.render('store', { store, title: store.name });
 }
