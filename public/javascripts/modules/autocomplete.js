@@ -8,7 +8,7 @@ function autocomplete(input, latInput, lngInput){
   
   // 'addListener' is a googlemaps function
   dropdown.addListener('place_changed', () => {
-    // getPlace() is a google maps widget
+    // getPlace() is a google maps widget as well
     const place = dropdown.getPlace();
 
     // add the coordinates to the lat and lng
