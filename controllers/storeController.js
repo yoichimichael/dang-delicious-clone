@@ -122,5 +122,6 @@ exports.getStoreBySlug = async (req, res, next) => {
 }
 
 exports.getStoresByTag = async (req, res) => {
-  res.send('it works');
+  const stores = await Store.getTagsList();
+  res.json(stores);
 }

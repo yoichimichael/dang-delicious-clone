@@ -63,4 +63,12 @@ storeSchema.pre('save', async function(next){
   // to do: make more resilient by making slugs unique
 });
 
+// need to use a proper function here so that 'this' inside the function will be bound to the model
+// don't use an arrow function
+storeSchema.statics.getTagsList = function(){
+  return this.aggregate([
+    { $unwind: '$tags' }
+  ]);
+}
+
 module.exports = mongoose.model('Store', storeSchema);
