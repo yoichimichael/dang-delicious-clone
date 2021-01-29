@@ -67,7 +67,9 @@ storeSchema.pre('save', async function(next){
 // don't use an arrow function
 storeSchema.statics.getTagsList = function(){
   return this.aggregate([
-    { $unwind: '$tags' }
+    { $unwind: '$tags' },
+    { $group: { _id: '$tags', count: { $sum: 1 } }},
+    { $sort: { count: -1 } }
   ]);
 }
 
