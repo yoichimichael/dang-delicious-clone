@@ -29,4 +29,9 @@ const userSchema = new Schema({
   
 });
 
+// allows login with email address
+userSchema.plugin(passportLocalMongoose, { usernameField: 'email' })
+// providee better errors for users
+userSchema.plugin(mongodbErrorHandler);
+
 module.exports = mongoose.model('User', userSchema); 
