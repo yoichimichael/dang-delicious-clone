@@ -1,4 +1,8 @@
 const mongoose = require('mongoose');
+// can call on this because imported models, like Store, in start.js
+const User = mongoose.model('User');
+// library
+const promisify = require('es6-promisify');
 
 exports.loginForm = (req,  res) => {
   res.render('login', { title: 'Login'});
@@ -35,3 +39,19 @@ exports.validateRegister = (req, res, next) => {
   }
   next(); // there were no errors!
 };
+
+// passing next because this is not end of the road, which is actually logging in
+exports.register = async (req, res, next) => {
+  // access to form fields via inputs with connected name attributes
+  const user = new User({ email: req.body.email, name: req.body.name });
+  // promisify
+  const register = promisify(User.register, User);
+
+  // User.register(user, req.body.password, function(err, user) {
+    // note that this method that doesn't use promisify doesn't return a promise, which we need to use async/await; instead use the promisify library
+  // });
+
+  await register(user, req.body.password);
+  next(); // pass to authController.login
+
+}

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const storeController = require('../controllers/storeController');
 const userController = require('../controllers/userController');
+const authController = require('../controllers/authController');
 
 // object destructuring
 // only importing the catchErrors function from errorHandlers.js
@@ -36,10 +37,15 @@ router.get('/tags/:tag', catchErrors(storeController.getStoresByTag));
 router.get('/login', userController.loginForm);
 router.get('/register', userController.registerForm);
 
+
 // 1. validate the registration data
 // 2. register the user
 // 3. we need to log them in
-router.post('/register', userController.validateRegister);
+router.post('/register', 
+  userController.validateRegister,
+  userController.register,
+  authController.login  
+);
 
 // router.get('/', (req, res) => {
    
