@@ -4,8 +4,11 @@ const passport = require('passport');
 exports.login = passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: 'Failed Login!',
-  successRedirect: '/',
-  successFlash: 'You are now logged in'
+  
+  // I have re-ordered these two method calls
+  // with other sequence, Flash wouldn't occur at redirect, it would occur at another page navigation
+  successFlash: 'You are now logged in',
+  successRedirect: '/'
 })
 
 exports.logout = (req, res) => {
