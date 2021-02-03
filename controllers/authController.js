@@ -5,13 +5,14 @@ exports.login = passport.authenticate('local', {
   failureRedirect: '/login',
   failureFlash: 'Failed Login!',
   
-  // I have re-ordered these two method calls
-  // with other sequence, Flash wouldn't occur at redirect, it would occur at another page navigation
-  successFlash: 'You are now logged in',
-  successRedirect: '/'
+  // note that, like with logout, the flash messages are not flashing when expected (at page redirect)
+  successRedirect: '/',
+  successFlash: 'You are now logged in'
 })
 
 exports.logout = (req, res) => {
+
+  // see flash issue above
   req.logout();
   req.flash('success', 'You are now logged out! 👋🏼');
   res.redirect('/');

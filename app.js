@@ -33,7 +33,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(expressValidator());
 
 // populates req.cookies with any cookies that came along with the request
-app.use(cookieParser());
+// app.use(cookieParser());
+// changed above due to weird performance of flash messages
+app.use(cookieParser((process.env.SESSION_STORE_SECRET)));
 
 // Sessions allow us to store data on visitors from request to request
 // This keeps users logged in and allows us to send flash messages

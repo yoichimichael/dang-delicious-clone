@@ -29,6 +29,12 @@ const userSchema = new Schema({
   
 });
 
+// again, using a proper function, instead of arrow function for proper 'this' binding
+userSchema.virtual('gravatar').get(function(){
+  const hash = md5(this.email);
+  return `https://gravatar.com/avatar/${hash}?s=200`;
+});
+
 // allows login with email address
 userSchema.plugin(passportLocalMongoose, { usernameField: 'email' })
 // providee better errors for users
