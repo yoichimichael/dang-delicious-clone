@@ -25,8 +25,9 @@ const userSchema = new Schema({
     type: String,
     required: 'Please supply a name',
     trim: true
-  }
-  
+  },
+  resetPasswordToken: String,
+  resetPasswordExpires: Date  
 });
 
 // again, using a proper function, instead of arrow function for proper 'this' binding
