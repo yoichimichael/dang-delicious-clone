@@ -53,5 +53,8 @@ exports.register = async (req, res, next) => {
 
   await register(user, req.body.password);
   next(); // pass to authController.login
+}
 
+exports.account = (req, res) => {
+  res.render('account', { title: 'Edit Your Account' });
 }

@@ -51,6 +51,8 @@ router.post('/register',
 
 router.get('/logout', authController.logout);
 
+router.get('/account', userController.account);
+
 // router.get('/', (req, res) => {
    
 //   const peep = { name: "YO", age: 200, cool: true };
