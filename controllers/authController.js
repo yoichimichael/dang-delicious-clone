@@ -1,7 +1,9 @@
 const passport = require('passport');
 const crypto = require('crypto'); 
 const mongoose = require('mongoose');
+// const { promisify } = require('util'); // where is this from??
 const User = mongoose.model('User');
+const promisify = require('es6-promisify');
 
 // if passport isn't able to authenticate, will redirect and flash
 exports.login = passport.authenticate('local', {
@@ -82,4 +84,22 @@ exports.update = async (req, res) => {
     // $gt is the MondoDB operator for 'greater than'
     resetPasswordExpires: { $gt: Date.now() }
   });
+
+  if (!user) {
+    req.flash('error', 'Password reset is invalid or has expired');
+    return res.redirect('/login')
+  }
+
+  // available via passport plugin on User.js
+  const setPassword = promisify(user.setPassword, user);
+  await setPassword(req.body.password);
+  user.resetPasswordToken = undefined;
+  user.resetPasswordExpires = undefined;
+  const updatedUser = await user.save();
+
+  // another passport.js feature
+  // automatically logs in user based on passed object
+  await req.login(updatedUser);
+  req.flash('success', '💃🏻 Nice! Your Password has been reset! You are now logged in!')
+  res.redirect('/');
 }
