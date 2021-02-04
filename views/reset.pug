@@ -1,0 +1,12 @@
+extends layout
+
+block content
+  .inner
+    //- leaving off 'action' attribute makes form default to current url
+    form.form(method="POST")
+      h2 Reset Your Password
+      label(for="password") Password
+      input(type="password" name="password")
+      label(for="password-confirm") Confirm Password
+      input(type="password" name="password-confirm")
+      input(type="submit" value="Reset Password →")
