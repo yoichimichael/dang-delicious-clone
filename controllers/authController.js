@@ -64,3 +64,22 @@ exports.reset = async (req, res) => {
   // if there is a user, show the reset password form
   res.render('reset', { title: 'Reset your Password' })
 }
+
+exports.confirmedPasswords = (req, res, next) => {
+  // need to use square brackets to acces password-confirm property because of the dash
+  // can't use dot notation
+  if (req.body.password === req.body['password-confirm']){
+    next(); // keep it going
+    return;
+  }
+  req.flash('error', 'Passwords do not match!');
+  res.redirect('back');
+}
+
+exports.update = async (req, res) => {
+  const user = await User.findOne({
+    resetPasswordToken: req.params.token,
+    // $gt is the MondoDB operator for 'greater than'
+    resetPasswordExpires: { $gt: Date.now() }
+  });
+}
