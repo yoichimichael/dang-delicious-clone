@@ -64,6 +64,9 @@ exports.resize = async (req, res, next) => {
 }
 
 exports.createStore = async (req, res) => {
+  // uses user._id to be store's author _id; creates the relationship
+  req.body.author = req.user._id;
+
   // store.save() returns a promise
   // ... which we 'await'
   // code will stop until save has returned data or an error
@@ -83,12 +86,19 @@ exports.getStores = async (req, res) => {
   res.render('stores', { title: 'Stores', stores })
 };
 
+const confirmOwner = (store, user) => {
+  if (!store.author.equals(user._id)) {
+    throw Error('You must own a store in order to edit it!');
+  }
+};
+
 exports.editStore = async (req, res) => {
   // 1. find the store given the id
   // await allows store to be an actual store object, not a promise
   const store = await Store.findOne({ _id: req.params.id})
   // res.json(store);
   // 2. confirm they are the owner of the store
+  confirmOwner(store, req.user);
   // 3. render out the edit form for the user can update their store
   res.render('editStore', { title: `Edit ${store.name}`, store})
 }
@@ -113,7 +123,7 @@ exports.updateStore = async (req, res) => {
 exports.getStoreBySlug = async (req, res, next) => {
   // res.send('it works!');
   // res.json(req.params);
-  const store = await Store.findOne({ slug: req.params.slug });
+  const store = await Store.findOne({ slug: req.params.slug }).populate('author');
 
   // if not store is returned, go to next function in middleware
   if(!store) return next();
