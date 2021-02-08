@@ -14,6 +14,14 @@ const transport = nodemailer.createTransport({
   }
 });
 
+// not needed anywhere outside of this file, so no exports.generateHTML
+const generateHTML = (filename, options = {}) => {
+  // __dirname refers to current directory
+  const html = pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options);
+  console.log(html)
+  return html;
+}
+
 exports.send = async (options) => {
   const mailOptions = {
     from: 'Yoichi Nagano <ymnagano@protonmail.com',

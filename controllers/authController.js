@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 // const { promisify } = require('util'); // where is this from??
 const User = mongoose.model('User');
 const promisify = require('es6-promisify');
+const mail = require('../handlers/mail');
 
 // if passport isn't able to authenticate, will redirect and flash
 exports.login = passport.authenticate('local', {
@@ -48,7 +49,16 @@ exports.forgot = async (req, res) => {
 
   // 3. send them an email with a token
   const resetURL = `http://${req.headers.host}/account/reset/${user.resetPasswordToken}`; // if not hosted, directs to localhost
-  req.flash('success', `You have been emailed a password reset link. ${resetURL}`);
+  
+  await mail.send({
+    // using ES6 syntax to shorten property assignment
+    user,
+    subject: 'Password Reset',
+    resetURL,
+    filename: 'password-reset'
+  });
+
+  req.flash('success', `You have been emailed a password reset link.`);
   // 4. redirect to login page
   res.redirect('/login'); 
 }
