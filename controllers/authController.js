@@ -53,9 +53,9 @@ exports.forgot = async (req, res) => {
   await mail.send({
     // using ES6 syntax to shorten property assignment
     user,
+    filename: 'password-reset',
     subject: 'Password Reset',
-    resetURL,
-    filename: 'password-reset'
+    resetURL
   });
 
   req.flash('success', `You have been emailed a password reset link.`);
