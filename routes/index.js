@@ -61,6 +61,12 @@ router.post(
   catchErrors(authController.update)
 );
 
+/*
+  API
+*/
+
+router.get('/api/search', catchErrors(storeController.searchStores));
+
 // router.get('/', (req, res) => {
    
 //   const peep = { name: "YO", age: 200, cool: true };
