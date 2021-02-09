@@ -20,7 +20,9 @@ function typeAhead(search){
     axios
       .get(`/api/search?q=${this.value}`)
       .then(res => {
-        console.log(res.data);
+        if (res.data.length) {
+          console.log('There is something to show!');
+        }
       })
   });
 }
