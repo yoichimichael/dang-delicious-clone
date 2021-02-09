@@ -1,4 +1,4 @@
-const axios = require('axios');
+import axios from 'axios';
 
 function searchResultsHTML(stores) {
   return stores.map(store => {
@@ -26,15 +26,16 @@ function typeAhead(search){
 
     // show search results
     searchResults.style.display = 'block';
-    // remove search results
-    searchResults.innerHTML = '';
 
     axios
       .get(`/api/search?q=${this.value}`)
       .then(res => {
         if (res.data.length) {
           searchResults.innerHTML = searchResultsHTML(res.data);
+          return;
         }
+        // tell them nothing came back
+        searchResults.innerHTML = `<div class="search__result">No results for ${this.value} found!</div>`;
       })
       .catch(err => {
         console.error(err);
