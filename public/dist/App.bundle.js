@@ -1022,12 +1022,39 @@ function typeAhead(search) {
 
     axios.get('/api/search?q=' + this.value).then(function (res) {
       if (res.data.length) {
-        console.log('There is something to show!');
         searchResults.innerHTML = searchResultsHTML(res.data);
       }
     }).catch(function (err) {
       console.error(err);
     });
+  });
+
+  // handle keyboard inputs
+  searchInput.on('keyup', function (e) {
+    // if they aren't pressing up, down or enter keys, skip
+    if (![38, 40, 13].includes(e.keyCode)) {
+      return; // skip
+    }
+    var activeClass = 'search__result--active';
+    var current = search.querySelector('.' + activeClass);
+    var items = search.querySelectorAll('.search__result');
+    var next = void 0;
+    if (e.keyCode === 40 && current) {
+      next = current.nextElementSibling || items[0];
+    } else if (e.keyCode === 40) {
+      next = items[0];
+    } else if (e.keyCode === 38 && current) {
+      next = current.previousElementSibling || items[items.length - 1];
+    } else if (e.keyCode === 38) {
+      next = items[items.length - 1];
+    } else if (e.keyCode === 13 && current.href) {
+      window.location = current.href;
+      return;
+    }
+    if (current) {
+      current.classList.remove(activeClass);
+    }
+    next.classList.add(activeClass);
   });
 }
 
