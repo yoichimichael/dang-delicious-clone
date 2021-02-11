@@ -2782,7 +2782,7 @@ function loadPlaces(map) {
 
         var html = '\n          <div class="popup">\n            <a href="/store/' + this.place.slug + '">\n              <img src="/uploads/' + (this.place.photo || 'store.png') + '" alt="' + this.place.name + '"/>\n              <p>' + this.place.name + ' - ' + this.place.location.address + '</p>\n            </a>\n          </div>\n        ';
 
-        infoWindow.setContent(this.place.name);
+        infoWindow.setContent(html);
         infoWindow.open(map, this);
       });
     });
@@ -2801,8 +2801,11 @@ function makeMap(mapDiv) {
   loadPlaces(map);
 
   var input = (0, _bling.$)('[name="geolocate"]');
-  console.log(input);
   var autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.addListener('place_changed', function () {
+    var place = autocomplete.getPlace();
+    loadPlaces(map, place.geometry.location.lat(), place.geometry.location.lng());
+  });
 }
 
 exports.default = makeMap;

@@ -44,7 +44,7 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
           </div>
         `;
 
-        infoWindow.setContent(this.place.name);
+        infoWindow.setContent(html);
         infoWindow.open(map, this);
       }));
 
@@ -62,8 +62,11 @@ function makeMap(mapDiv) {
   loadPlaces(map);
 
   const input = $('[name="geolocate"]');
-  console.log(input);
   const autocomplete = new google.maps.places.Autocomplete(input);
+  autocomplete.addListener('place_changed', () => {
+    const place = autocomplete.getPlace();
+    loadPlaces(map, place.geometry.location.lat(), place.geometry.location.lng())
+  })
 }
 
 
