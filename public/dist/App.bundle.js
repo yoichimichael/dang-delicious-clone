@@ -2750,6 +2750,8 @@ function loadPlaces(map) {
 function makeMap(mapDiv) {
   // needs to be a mapdiv to run
   if (!mapDiv) return;
+  // make our map
+  var map = new google.maps.Map(mapDiv, mapOptions);
 }
 
 exports.default = makeMap;
