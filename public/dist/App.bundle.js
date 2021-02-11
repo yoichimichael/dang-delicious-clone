@@ -2717,6 +2717,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 (0, _typeAhead2.default)((0, _bling.$)('.search'));
 
+(0, _map2.default)((0, _bling.$)('#map'));
+
 /***/ })
 /******/ ]);
 //# sourceMappingURL=App.bundle.js.map

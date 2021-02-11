@@ -8,3 +8,5 @@ import makeMap from '.modules/map';
 autocomplete($('#address'), $('#lat'), $('#lng'));
 
 typeAhead( $('.search') );
+
+makeMap( $('#map') );
