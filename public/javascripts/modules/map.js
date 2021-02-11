@@ -17,6 +17,8 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
       // create a bounds
       const bounds = new google.maps.LatLngBounds();
 
+      const infoWindow = new google.maps.InfoWindow();
+
       const markers = places.map(place => {
         // ES6 destructuring
         const [placeLng, placeLat] = place.location.coordinates;

@@ -2759,6 +2759,8 @@ function loadPlaces(map) {
     // create a bounds
     var bounds = new google.maps.LatLngBounds();
 
+    var infoWindow = new google.maps.InfoWindow();
+
     var markers = places.map(function (place) {
       // ES6 destructuring
       var _place$location$coord = _slicedToArray(place.location.coordinates, 2),
