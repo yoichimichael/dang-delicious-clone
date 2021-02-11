@@ -2779,6 +2779,9 @@ function loadPlaces(map) {
     // use proper function to bind 'this' to the marker
     markers.forEach(function (marker) {
       return marker.addListener('click', function () {
+
+        var html = '\n          <div class="popup">\n            <a href="/store/' + this.place.slug + '">\n              <img src="/uploads/' + (this.place.photo || 'store.png') + '" alt="' + this.place.name + '"/>\n              <p>' + this.place.name + ' - ' + this.place.location.address + '</p>\n            </a>\n          </div>\n        ';
+
         infoWindow.setContent(this.place.name);
         infoWindow.open(map, this);
       });

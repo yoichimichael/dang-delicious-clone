@@ -34,6 +34,16 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
       // addListener is Google's version of add event listener
       // use proper function to bind 'this' to the marker
       markers.forEach(marker => marker.addListener('click', function() {
+
+        const html = `
+          <div class="popup">
+            <a href="/store/${this.place.slug}">
+              <img src="/uploads/${this.place.photo || 'store.png'}" alt="${this.place.name}"/>
+              <p>${this.place.name} - ${this.place.location.address}</p>
+            </a>
+          </div>
+        `;
+
         infoWindow.setContent(this.place.name);
         infoWindow.open(map, this);
       }));
