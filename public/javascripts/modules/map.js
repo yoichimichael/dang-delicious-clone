@@ -19,6 +19,7 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
 
       const infoWindow = new google.maps.InfoWindow();
 
+
       const markers = places.map(place => {
         // ES6 destructuring
         const [placeLng, placeLat] = place.location.coordinates;
@@ -28,6 +29,14 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
         marker.place = place;
         return marker; 
       });
+
+      // when someone clicks on a marker, show the details of that place
+      // addListener is Google's version of add event listener
+      // use proper function to bind 'this' to the marker
+      markers.forEach(marker => marker.addListener('click', function() {
+        infoWindow.setContent(this.place.name);
+        infoWindow.open(map, this);
+      }));
 
       // then zoom the map to fit all the markers perfectly
       map.setCenter(bounds.getCenter());

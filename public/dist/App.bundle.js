@@ -2774,6 +2774,16 @@ function loadPlaces(map) {
       return marker;
     });
 
+    // when someone clicks on a marker, show the details of that place
+    // addListener is Google's version of add event listener
+    // use proper function to bind 'this' to the marker
+    markers.forEach(function (marker) {
+      return marker.addListener('click', function () {
+        infoWindow.setContent(this.place.name);
+        infoWindow.open(map, this);
+      });
+    });
+
     // then zoom the map to fit all the markers perfectly
     map.setCenter(bounds.getCenter());
     map.fitBounds(bounds);
