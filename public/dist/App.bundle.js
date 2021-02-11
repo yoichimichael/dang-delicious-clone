@@ -2707,6 +2707,10 @@ var _typeAhead = __webpack_require__(10);
 
 var _typeAhead2 = _interopRequireDefault(_typeAhead);
 
+var _map = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \".modules/map\""); e.code = 'MODULE_NOT_FOUND';; throw e; }()));
+
+var _map2 = _interopRequireDefault(_map);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _autocomplete2.default)((0, _bling.$)('#address'), (0, _bling.$)('#lat'), (0, _bling.$)('#lng'));
