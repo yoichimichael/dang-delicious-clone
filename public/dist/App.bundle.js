@@ -2707,7 +2707,7 @@ var _typeAhead = __webpack_require__(10);
 
 var _typeAhead2 = _interopRequireDefault(_typeAhead);
 
-var _map = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \".modules/map\""); e.code = 'MODULE_NOT_FOUND';; throw e; }()));
+var _map = __webpack_require__(33);
 
 var _map2 = _interopRequireDefault(_map);
 
@@ -2718,6 +2718,35 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 (0, _typeAhead2.default)((0, _bling.$)('.search'));
 
 (0, _map2.default)((0, _bling.$)('#map'));
+
+/***/ }),
+/* 32 */,
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _axios = __webpack_require__(12);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function loadPlaces(map) {
+  var lat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 43.2;
+  var lng = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -79.8;
+}
+
+function makeMap(mapDiv) {
+  console.log(mapDiv);
+}
+
+exports.default = makeMap;
 
 /***/ })
 /******/ ]);
