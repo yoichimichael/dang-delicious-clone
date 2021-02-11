@@ -62,10 +62,13 @@ router.post(
 );
 
 /*
+-------
   API
+-------
 */
 
 router.get('/api/search', catchErrors(storeController.searchStores));
+
 
 // router.get('/', (req, res) => {
    

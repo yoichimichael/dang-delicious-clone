@@ -55,6 +55,9 @@ storeSchema.index({
   description: 'text'
 });
 
+// for geolocation indexing
+storeSchema.index({ location: '2dsphere' });
+
 storeSchema.pre('save', async function(next){
   if(!this.isModified('name')){
     next(); // skip if name has not been modified
