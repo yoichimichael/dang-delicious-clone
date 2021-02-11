@@ -2722,39 +2722,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 /***/ }),
 /* 32 */,
 /* 33 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _axios = __webpack_require__(12);
-
-var _axios2 = _interopRequireDefault(_axios);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var mapOptions = {
-  center: { lat: 43.2, lng: -79.8 },
-  zoom: 2
-};
-
-function loadPlaces(map) {
-  var lat = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : 43.2;
-  var lng = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : -79.8;
-}
-
-function makeMap(mapDiv) {
-  // needs to be a mapdiv to run
-  if (!mapDiv) return;
-  // make our map
-  var map = new google.maps.Map(mapDiv, mapOptions);
-}
-
-exports.default = makeMap;
+throw new Error("Module build failed: SyntaxError: Unexpected token (19:0)\n\n\u001b[0m \u001b[90m 17 | \u001b[39m  \u001b[36mconst\u001b[39m map \u001b[33m=\u001b[39m \u001b[36mnew\u001b[39m google\u001b[33m.\u001b[39mmaps\u001b[33m.\u001b[39m\u001b[33mMap\u001b[39m(mapDiv\u001b[33m,\u001b[39m mapOptions)\u001b[33m;\u001b[39m\n \u001b[90m 18 | \u001b[39m  \u001b[36mconst\u001b[39m inptut\n\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 19 | \u001b[39m}\n \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\n \u001b[90m 20 | \u001b[39m\n \u001b[90m 21 | \u001b[39m\n \u001b[90m 22 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m makeMap\u001b[33m;\u001b[39m\u001b[0m\n");
 
 /***/ })
 /******/ ]);
