@@ -1,9 +1,11 @@
 const mongoose = require('mongoose');
 // Store model schema; set in Store.js file
 const Store = mongoose.model('Store');
+const User = mongoose.model('User');
 const multer = require('multer');
 const jimp = require('jimp');
 const uuid = require('uuid') 
+
 
 // sets upload restrictions
 const multerOptions = {
@@ -191,5 +193,14 @@ exports.mapPage = (req, res) => {
 }
 
 exports.heartStore = async (req, res) => {
-
+  // toString() is a MongoDB method (see: polymorphism)
+  const hearts = req.user.hearts.map(obj => obj.toString())
+  const operator = hearts.includes(req.params.id) ? '$pull' : '$addToSet'; 
+  const user = await User
+    .findByIdAndUpdate(
+      req.user._id,
+      { [operator]: { hearts: req.params.id } },
+      { new: true }
+    );
+  res.json(user);
 }
