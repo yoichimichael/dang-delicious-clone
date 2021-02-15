@@ -4,7 +4,12 @@ mixin storeCard(store = {})
   .store
     .store__hero
       .store__actions
-        //- note that we use equals on author here and not author._id
+        if user 
+          .store__action.store__action--heart
+            form.heart(method="POST" action=`/api/stores/${store._id}/heart`)
+              button(type="submit" name="heart")
+                != h.icon('heart')
+        //- note that we use .equals() on author here and not author._id
         if user && store.author.equals(user._id)
           .store__action.store__action--edit
             a(href=`/stores/${store._id}/edit`)
