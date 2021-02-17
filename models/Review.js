@@ -27,4 +27,10 @@ const reviewSchema = new mongoose.Schema({
   }
 })
 
+function autopopulate(next) {
+  // this will auto-populate author field in review queries
+  this.populate('author');
+  next();
+}
+
 module.exports = mongoose.model('Review', reviewSchema);
