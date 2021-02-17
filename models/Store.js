@@ -88,4 +88,13 @@ storeSchema.statics.getTagsList = function(){
   ]);
 }
 
+// find reviews where the stores _id property === reviews store property
+storeSchema.virtual('reviews', {
+  ref: 'Review', // what model to link?
+  // store
+  localField: '_id', // which field on the store?
+  // Review instance's store field
+  foreignField: 'store' // which field on the review?
+});
+
 module.exports = mongoose.model('Store', storeSchema);
