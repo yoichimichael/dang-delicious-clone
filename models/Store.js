@@ -47,6 +47,10 @@ const storeSchema = new mongoose.Schema({
     ref: 'User',
     required: 'You must supply an author'
   }
+}, {
+  // specifies that virtual fields should be present in JSON and Object imports
+  toJSON: { virtuals: true },
+  toObject: { virtuals: true},
 });
 
 // define our indexes
