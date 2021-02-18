@@ -92,7 +92,34 @@ storeSchema.statics.getTagsList = function(){
   ]);
 }
 
+// aggregate is MongoDB-specific so we can't use the reviews virtual
+storeSchema.statics.getTopStores = function(){
+  return this.aggregate([
+    // Lookup Stores and populate their reviews
+    { $lookup: { 
+      from: 'reviews', 
+      localField: '_id', 
+      foreignField: 'store', 
+      // this is how the reviews property will be labeled in returned JSON
+      // can be anything
+      as: 'reviews' 
+    }},
+    // filter for only items that have 2 or more reviews
+    // the .1 is how to reference things that are indexed
+    { $match: {
+      'reviews.1': { $exists: true }
+    }}
+    // Add the average reviews field
+
+    // sort it by our new field, highest reviews first
+
+    // limit to at most 10
+
+  ])
+}
+
 // find reviews where the stores _id property === reviews store property
+// note this is Mongoose-specific
 storeSchema.virtual('reviews', {
   ref: 'Review', // what model to link?
   // store
