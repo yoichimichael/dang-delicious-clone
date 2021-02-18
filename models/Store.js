@@ -108,9 +108,15 @@ storeSchema.statics.getTopStores = function(){
     // the .1 is how to reference things that are indexed
     { $match: {
       'reviews.1': { $exists: true }
-    }}
+    }},
     // Add the average reviews field
-
+    // with $project, need to add back all the fields
+    { $project: {
+      photo: '$$ROOT.photo',
+      name: '$$ROOT.name',
+      reviews: '$$ROOT.reviews',
+      averageRating: { $avg: '$reviews.rating' }
+    } }
     // sort it by our new field, highest reviews first
 
     // limit to at most 10
