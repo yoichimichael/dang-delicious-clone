@@ -116,12 +116,13 @@ storeSchema.statics.getTopStores = function(){
       name: '$$ROOT.name',
       reviews: '$$ROOT.reviews',
       averageRating: { $avg: '$reviews.rating' }
-    } }
+    } },
     // sort it by our new field, highest reviews first
-
+    // averageRating gets 1 or -1; -1 is highest to lowest
+    { $sort: { averageRating: -1 } },
     // limit to at most 10
-
-  ])
+    { $limit: 10 }
+  ]);
 }
 
 // find reviews where the stores _id property === reviews store property
