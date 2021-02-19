@@ -94,9 +94,11 @@ exports.getStores = async (req, res) => {
 
   const [stores, count] = await Promise.all([storesPromise, countPromise]);
 
+  const pages = Math.ceil(count / limit);
+
   // 'stores' is name of pug template
   // { title: 'Stores' } is passed as part of locals
-  res.render('stores', { title: 'Stores', stores })
+  res.render('stores', { title: 'Stores', stores, page, pages, count })
 };
 
 const confirmOwner = (store, user) => {

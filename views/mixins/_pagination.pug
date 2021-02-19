@@ -4,7 +4,7 @@ mixin pagination(page, pagees, count)
       if page > 1
         a(href=`/stores/page/${page - 1}`)
     .pagination__text 
-      p Page #{page} of ${pages} - ${count} total results
+      p Page #{page} of #{pages} - #{count} total results
     .pagination__next
       if page < pages 
         a(href=`/stores/pages/${parseFloat(page) + 1}`) Next
