@@ -96,6 +96,12 @@ exports.getStores = async (req, res) => {
 
   const pages = Math.ceil(count / limit);
 
+  if (!stores.length && skip) {
+    req.flash('info', `You asked for page ${page}, but that page doesn't exist so I put you on ${pages}`)
+    res.redirect(`/stores/page/${pages}`);
+    return;
+  }
+
   // 'stores' is name of pug template
   // { title: 'Stores' } is passed as part of locals
   res.render('stores', { title: 'Stores', stores, page, pages, count })
