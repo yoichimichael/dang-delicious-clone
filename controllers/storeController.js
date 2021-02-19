@@ -85,10 +85,14 @@ exports.getStores = async (req, res) => {
   const skip = (page * limit) - limit;
 
   // Query Database for a list of all stores
-  const stores = await Store
+  const storesPromise = Store
     .find()
     .skip(skip)
     .limit(limit)
+
+  const countPromise = Store.count();
+
+  const [stores, count] = await Promise.all([storesPromise, countPromise]);
 
   // 'stores' is name of pug template
   // { title: 'Stores' } is passed as part of locals
