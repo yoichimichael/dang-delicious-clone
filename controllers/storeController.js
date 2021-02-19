@@ -80,8 +80,15 @@ exports.createStore = async (req, res) => {
 };
 
 exports.getStores = async (req, res) => {
+  const page = req.paras.page || 1;
+  const limit = 4;
+  const skip = (page *  limit) - limit;
+
   // Query Database for a list of all stores
-  const stores = await Store.find();
+  const stores = await Store
+    .find()
+    .skip(skip)
+    .limit(limit)
 
   // 'stores' is name of pug template
   // { title: 'Stores' } is passed as part of locals
