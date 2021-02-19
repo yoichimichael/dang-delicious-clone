@@ -80,9 +80,9 @@ exports.createStore = async (req, res) => {
 };
 
 exports.getStores = async (req, res) => {
-  const page = req.paras.page || 1;
+  const page = req.params.page || 1;
   const limit = 4;
-  const skip = (page *  limit) - limit;
+  const skip = (page * limit) - limit;
 
   // Query Database for a list of all stores
   const stores = await Store
