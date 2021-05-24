@@ -14,14 +14,12 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
         alert('no places found!');
         return;
       }
-      // create a bounds
       const bounds = new google.maps.LatLngBounds();
 
       const infoWindow = new google.maps.InfoWindow();
 
 
       const markers = places.map(place => {
-        // ES6 destructuring
         const [placeLng, placeLat] = place.location.coordinates;
         const position = { lat: placeLat, lng: placeLng };
         bounds.extend(position);
@@ -30,9 +28,6 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
         return marker; 
       });
 
-      // when someone clicks on a marker, show the details of that place
-      // addListener is Google's version of add event listener
-      // use proper function to bind 'this' to the marker
       markers.forEach(marker => marker.addListener('click', function() {
 
         const html = `
@@ -47,17 +42,13 @@ function loadPlaces(map, lat = 43.2, lng = -79.8) {
         infoWindow.setContent(html);
         infoWindow.open(map, this);
       }));
-
-      // then zoom the map to fit all the markers perfectly
       map.setCenter(bounds.getCenter());
       map.fitBounds(bounds);
     });
 }
 
 function makeMap(mapDiv) {
-  // needs to be a mapdiv to run
   if (!mapDiv) return;
-  // make our map
   const map = new google.maps.Map(mapDiv, mapOptions);
   loadPlaces(map);
 

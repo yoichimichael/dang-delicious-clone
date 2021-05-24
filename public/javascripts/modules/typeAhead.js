@@ -19,13 +19,10 @@ function typeAhead(search){
   
   // '.on' is from bling.js 
   searchInput.on('input', function() {
-    // if there is no value, quit it
     if (!this.value) {
       searchResults.style.display = 'none';    
-      return; // stop!
+      return;
     }
-
-    // show search results
     searchResults.style.display = 'block';
 
     axios
@@ -35,7 +32,7 @@ function typeAhead(search){
           searchResults.innerHTML = dompurify.sanitize(searchResultsHTML(res.data));
           return;
         }
-        // tell them nothing came back
+
         searchResults.innerHTML = dompurify.sanitize(`<div class="search__result" >No results for ${this.value} found!</div>`);
       })
       .catch(err => {
@@ -43,11 +40,9 @@ function typeAhead(search){
       });
   });
 
-  // handle keyboard inputs
   searchInput.on('keyup', (e) => {
-    // if they aren't pressing up, down or enter keys, skip
     if (![38, 40, 13].includes(e.keyCode)) {
-      return; // skip
+      return;
     }
     const activeClass = 'search__result--active';
     const current = search.querySelector(`.${activeClass}`);
