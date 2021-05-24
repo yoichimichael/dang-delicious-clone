@@ -14,9 +14,7 @@ const transport = nodemailer.createTransport({
   }
 });
 
-// not needed anywhere outside of this file, so no exports.generateHTML
 const generateHTML = (filename, options = {}) => {
-  // __dirname refers to current directory
   const html = pug.renderFile(`${__dirname}/../views/email/${filename}.pug`, options);
   const inlined = juice(html);
 
@@ -36,11 +34,3 @@ exports.send = async (options) => {
   const sendMail = promisify(transport.sendMail, transport);  
   return sendMail(mailOptions);
 }
-
-// transport.sendMail({
-//   from: 'Yoichi Nagano <ymnagano@protonmail.com>',
-//   to: 'danielle.keita.taguchi@gmail.com',
-//   subject: 'Just trying things out!',
-//   html: 'Hey I <strong>love</strong> you',
-//   text: 'hey I **love** you'
-// });
